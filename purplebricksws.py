@@ -45,24 +45,24 @@ search = driver.find_element(
 )
 search.click()
 
-
 listings = driver.find_elements(
-    "xpath", "//ul[@class='search-resultsstyled__StyledSearchResults-krg5hu-2 iaLdgK']"
+    "xpath",
+    "//div[@class='property-cardstyled__StyledPrimaryInfo-sc-15g6092-6 focoAE']",
 )
 
 propertyinfo = []
 
 for listing in listings:
     price = listing.find_element(
-        "xpath", "//strong[@data-testid='search-result-price']"
+        "xpath", ".//strong[@data-testid='search-result-price']"
     ).text
     address = listing.find_element(
-        "xpath", "//span[@data-testid='search-result-address']"
+        "xpath", ".//span[@data-testid='search-result-address']"
     ).text
     bedrooms = listing.find_element(
-        "xpath", "//strong[@data-testid='search-result-bedrooms']"
+        "xpath", ".//strong[@data-testid='search-result-bedrooms']"
     ).text
-    # print(price, address, bedrooms)
+
     dict = {"Price": price, "Address": address, "Bedrooms": bedrooms}
 
     propertyinfo.append(dict)
@@ -70,53 +70,4 @@ for listing in listings:
 df = pd.DataFrame(propertyinfo)
 print(df)
 
-
-# prices = driver.find_elements(
-#     "xpath", "//strong[@data-testid='search-result-price']"
-# )
-
-# addresses = driver.find_elements(
-#     "xpath", "//span[@data-testid='search-result-address']"
-# )
-
-# bedrooms = driver.find_elements(
-#     "xpath", "//strong[@data-testid='search-result-bedrooms']"
-# )
-
-# propertyinfo = []
-
-# for price in prices:
-#     print(price)
-#     price = prices.find_element(
-#         "xpath", "//strong[@data-testid='search-result-price']"
-#     ).text
-
-# for address in addresses:
-#     address = addresses.find_element(
-#         "xpath", "//span[@data-testid='search-result-address']"
-#     ).text
-
-# for bedroom in bedrooms:
-#     bedroom = bedrooms.find_element(
-#         "xpath", "//strong[@data-testid='search-result-bedrooms']"
-#     ).text
-
-#     dict = {"Price": price, "Address": address, "Bedrooms": bedroom}
-
-#     propertyinfo.append(dict)
-
-# df = pd.DataFrame(propertyinfo)
-# print(df)
-
 driver.quit()
-
-# //ul[@class="search-resultsstyled__StyledSearchResults-krg5hu-2 iaLdgK"]
-
-# //ul[@data-testid="results-list"]
-
-# //a[@class="property-cardstyled__StyledLink-sc-15g6092-1 eQIvCR"]
-
-# listings = driver.find_elements("class", 'property-cardstyled__StyledLink-sc-15g6092-1 eQIvCR')
-
-# for listing in listings:
-#     desc = listing.find_element("xpath", "//a[@class='property-cardstyled__StyledLink-sc-15g6092-1 eQIvCR']")
