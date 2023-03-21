@@ -21,7 +21,20 @@ url = "https://www.purplebricks.co.uk/buyers"
 
 driver.get(url)
 
+
+acceptcookies = driver.find_element(
+    "xpath", "//button[@class='as-oil__btn-optin as-js-optin']"
+)
+
+acceptcookies.click()
+
+
+# closenewsletter = driver.find_element("xpath", "//button[@id='button3']")
+
+# closenewsletter.click()
+
 type = driver.find_element("xpath", "//input[@id='buyers-hero-property-search-input']")
+
 
 location = "london"
 
@@ -32,22 +45,70 @@ search = driver.find_element(
 )
 search.click()
 
-# listings = driver.find_elements(
-#     "xpath", "//ul[@class='search-resultsstyled__StyledSearchResults-krg5hu-2 iaLdgK']"
+
+listings = driver.find_elements(
+    "xpath", "//ul[@class='search-resultsstyled__StyledSearchResults-krg5hu-2 iaLdgK']"
+)
+
+propertyinfo = []
+
+for listing in listings:
+    price = listing.find_element(
+        "xpath", "//strong[@data-testid='search-result-price']"
+    ).text
+    address = listing.find_element(
+        "xpath", "//span[@data-testid='search-result-address']"
+    ).text
+    bedrooms = listing.find_element(
+        "xpath", "//strong[@data-testid='search-result-bedrooms']"
+    ).text
+    # print(price, address, bedrooms)
+    dict = {"Price": price, "Address": address, "Bedrooms": bedrooms}
+
+    propertyinfo.append(dict)
+
+df = pd.DataFrame(propertyinfo)
+print(df)
+
+
+# prices = driver.find_elements(
+#     "xpath", "//strong[@data-testid='search-result-price']"
 # )
 
-# for listing in listings:
-#     price = listing.find_element(
+# addresses = driver.find_elements(
+#     "xpath", "//span[@data-testid='search-result-address']"
+# )
+
+# bedrooms = driver.find_elements(
+#     "xpath", "//strong[@data-testid='search-result-bedrooms']"
+# )
+
+# propertyinfo = []
+
+# for price in prices:
+#     print(price)
+#     price = prices.find_element(
 #         "xpath", "//strong[@data-testid='search-result-price']"
 #     ).text
-#     address = listing.find_element(
+
+# for address in addresses:
+#     address = addresses.find_element(
 #         "xpath", "//span[@data-testid='search-result-address']"
 #     ).text
-#     bedrooms = listing.find_element(
+
+# for bedroom in bedrooms:
+#     bedroom = bedrooms.find_element(
 #         "xpath", "//strong[@data-testid='search-result-bedrooms']"
 #     ).text
-#     print(price, address, bedrooms)
 
+#     dict = {"Price": price, "Address": address, "Bedrooms": bedroom}
+
+#     propertyinfo.append(dict)
+
+# df = pd.DataFrame(propertyinfo)
+# print(df)
+
+driver.quit()
 
 # //ul[@class="search-resultsstyled__StyledSearchResults-krg5hu-2 iaLdgK"]
 
